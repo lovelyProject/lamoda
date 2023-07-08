@@ -26,6 +26,7 @@ export default {
   background-color: transparent
   cursor: pointer
   border: none
+  width: 100%
 
 .m-primary
   background-color: $black

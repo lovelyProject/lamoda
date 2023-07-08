@@ -8,17 +8,24 @@
     )
       common-card(
       :state="product"
-      @onButton="onButton"
+      :is-btn-active="false"
+      @click="toggleModal(product)"
       )
+  the-modal(
+    v-if="isModal"
+    :state="modalState"
+    @onButton="addToCart"
+    @hideModal="toggleModal(null)"
+  )
 </template>
 
 <script>
 //components
 import CommonCard from "@/components/common/CommonCard.vue"
 import TheLoader from "@/components/ui/TheLoader.vue";
+import TheModal from "@/components/modal/TheModal.vue";
 
 //state
-import { actionTypes } from "@/store/product";
 import { mapState } from "vuex";
 
 export default {
@@ -29,6 +36,8 @@ export default {
     ...mapState({
       products: (state) => state.product.products,
       isLoading: (state) => state.product.isLoading,
+      isModal: (state) => state.product.isModal,
+      modalState: (state) => state.product.modalState,
     }),
     filterProducts() {
       const self = this;
@@ -41,17 +50,24 @@ export default {
     }
   },
   methods: {
-    onButton(product) {
+    addToCart(product) {
       this.$store.commit("ADD_TO_CART", product)
+      this.$store.dispatch("UPDATE_LOCAL_CART");
+      this.toggleModal(null);
+    },
+    toggleModal(product) {
+      this.$store.commit("SET_MODAL_STATE", product)
+      this.$store.commit("TOGGLE_MODAL")
     },
   },
   components: {
     CommonCard,
-    TheLoader
+    TheLoader,
+    TheModal
   },
   mounted() {
     if (this.products) {
-      this.$store.dispatch(actionTypes.getProducts)
+      this.$store.dispatch("GET_PRODUCTS")
     }
   },
 }
@@ -65,6 +81,11 @@ export default {
     display: flex
     flex-wrap: wrap
     gap: 10px
-    width: 1040px
+    max-width: 1040px
     margin: 0 auto
+
+@media screen and (width < 900px)
+  .main
+    &__list
+      display: block
 </style>

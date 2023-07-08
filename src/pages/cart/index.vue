@@ -2,7 +2,7 @@
 section.cart
   h1.cart__title Корзина
   .cart__container
-    h2.cart__subtitle(v-if="cart.size === 0") Корзина пуста...
+    h2.cart__subtitle(v-if="cart.length === 0") Корзина пуста...
     .cart__list-wrapper(v-else)
       ul.cart__list
         li.cart__list-item(
@@ -11,6 +11,7 @@ section.cart
         )
           common-card(
             :state="product"
+            :is-btn-active="true"
             btn-title="Удалить из корзины"
             @onButton="deleteProduct"
           )
@@ -29,12 +30,12 @@ export default {
       cart: (state) => state.cart.cart,
     }),
     totalCost() {
-      const self = this;
+      const sumArray = [];
+      this.cart.forEach((item) => {
+        sumArray.push(item.price * item.count)
+      })
 
-      return `Итого: ${[...self.cart].reduce((sum, currentValue) => {
-        console.log(currentValue)
-        return Number(sum) + Number(currentValue.price);
-      })}`
+      return `Итого: ${sumArray.reduce((sum, currentValue) => sum + currentValue)}$`
     }
   },
   components: {
@@ -42,8 +43,9 @@ export default {
   },
   methods: {
     deleteProduct(product) {
-      this.$store.commit("DELETE_FROM_CART", product)
-    }
+      this.$store.commit("DELETE_FROM_CART", product);
+      this.$store.dispatch("UPDATE_LOCAL_CART");
+    },
   }
 }
 </script>
@@ -62,6 +64,11 @@ export default {
     display: flex
     flex-wrap: wrap
     gap: 10px
-    width: 1040px
+    max-width: 1040px
     margin: 0 auto
+
+@media screen and (width < 900px)
+  .cart
+    &__list
+      display: block
 </style>

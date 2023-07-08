@@ -1,14 +1,17 @@
 <template lang="pug">
 .card
-  img.card__icon(
-  :src="state.image"
-  :alt="state.title"
-  )
-  span.card__caption {{ state.price }}$
+  .card__icon-container
+    img.card__icon(
+    :src="state.image"
+    :alt="state.title"
+    )
   span.card__caption(
     :title="state.title"
   ) {{ state.title }}
+  span.card__caption {{ state.price }}$
+  span.card__caption(v-if="state.count") {{ `Количество: ${state.count}` }}
   primary-button(
+    v-if="isBtnActive"
     modifier="primary"
     @onButton="onButton"
     ) {{ btnTitle }}
@@ -21,6 +24,10 @@ export default {
     state: {
       type: Object,
       required: true
+    },
+    isBtnActive: {
+      type: Boolean,
+      default: false
     },
     btnTitle: {
       type: String,
@@ -45,6 +52,7 @@ export default {
   width: 200px
   padding: 10px
   transition: box-shadow .2s ease-out
+  cursor: pointer
 
   &:hover
       box-shadow: 0 0 3px 0 $gray
@@ -59,4 +67,10 @@ export default {
     padding: 5px
     text-overflow: ellipsis
 
+@media screen and (width < 900px)
+  .card
+    width: auto
+
+    &__caption
+      text-align: center
 </style>

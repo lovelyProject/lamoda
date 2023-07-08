@@ -4,45 +4,46 @@ const state = {
     products: [],
     isLoading: false,
     isError: false,
+    modalState: null,
+    isModal: false,
     filterVars: ["men\'s clothing", "women\'s clothing"]
-}
-export const mutationTypes = {
-    getProductsStart: "[products] get products start",
-    getProductsSuccess: "[products] get products success",
-    getProductsFailure: "[products] get products failure",
 }
 
 const mutations = {
-    [mutationTypes.getProductsStart]: (state) => {
+    GET_PRODUCTS_START: (state) => {
         state.isLoading = true;
     },
-    [mutationTypes.getProductsSuccess]: (state, payload) => {
+    GET_PRODUCTS_SUCCESS: (state, payload) => {
         state.products = payload;
         state.isLoading = false;
     },
-    [mutationTypes.getProductsFailure]: (state) => {
+    GET_PRODUCTS_FAILURE: (state) => {
         state.isLoading = false;
         state.isError = true;
+    },
+    SET_MODAL_STATE: (state, payload) => {
+        state.modalState = payload;
+    },
+    TOGGLE_MODAL: (state) => {
+        state.isModal = !state.isModal;
     }
 }
-export const actionTypes = {
-    getProducts: "[products] get products",
-};
 
 const actions = {
-    [actionTypes.getProducts](context) {
+    GET_PRODUCTS(context) {
         return new Promise((resolve) => {
-            context.commit(mutationTypes.getProductsStart);
+            context.commit("GET_PRODUCTS_START");
             productsApi.getProducts()
                 .then((response) => {
                     const data = response.data;
                     const filterData = data.filter((item) => state.filterVars.includes(item.category));
 
-                    context.commit(mutationTypes.getProductsSuccess, filterData);
+                    context.commit("GET_PRODUCTS_SUCCESS", filterData);
                     resolve(response.data);
                 })
                 .catch((error) => {
                     console.log("can\'t get products", error);
+                    context.commit("GET_PRODUCTS_FAILURE");
                 })
         })
     }
