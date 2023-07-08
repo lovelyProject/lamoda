@@ -17,7 +17,7 @@ header.header
           class="header__link gender"
         ) {{ title }}
     router-link.header__link-container.cart(
-        :to="{name: 'home'}"
+        :to="{ name: 'cart' }"
     )
       img.header__icon(
           src="@/assets/icons/cart.svg"

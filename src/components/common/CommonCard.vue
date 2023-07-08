@@ -11,7 +11,7 @@
   primary-button(
     modifier="primary"
     @onButton="onButton"
-    ) Добавить в корзину
+    ) {{ btnTitle }}
 </template>
 
 <script>
@@ -21,6 +21,10 @@ export default {
     state: {
       type: Object,
       required: true
+    },
+    btnTitle: {
+      type: String,
+      default: "Добавить в корзину"
     }
   },
   components: {
@@ -39,15 +43,20 @@ export default {
   display: flex
   flex-direction: column
   width: 200px
+  padding: 10px
+  transition: box-shadow .2s ease-out
+
+  &:hover
+      box-shadow: 0 0 3px 0 $gray
 
   &__icon
     height: 200px
     object-fit: contain
 
   &__caption
-    white-space: nowrap /* Запрещаем перенос строк */
-    overflow: hidden /* Обрезаем все, что не помещается в область */
-    padding: 5px /* Поля вокруг текста */
-    text-overflow: ellipsis /* Добавляем многоточие */
+    white-space: nowrap
+    overflow: hidden
+    padding: 5px
+    text-overflow: ellipsis
 
 </style>

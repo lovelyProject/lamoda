@@ -21,7 +21,6 @@ import TheLoader from "@/components/ui/TheLoader.vue";
 import { actionTypes } from "@/store/product";
 import { mapState } from "vuex";
 
-
 export default {
   computed: {
     filterParam() {
@@ -40,6 +39,11 @@ export default {
         return item.category === self.filterParam
       })
     }
+  },
+  methods: {
+    onButton(product) {
+      this.$store.commit("ADD_TO_CART", product)
+    },
   },
   components: {
     CommonCard,
@@ -61,11 +65,6 @@ export default {
     display: flex
     flex-wrap: wrap
     gap: 10px
-
-    &-item
-      padding: 10px
-      transition: box-shadow .2s ease-out
-
-      &:hover
-        box-shadow: 0 0 3px 0 $gray
+    width: 1040px
+    margin: 0 auto
 </style>

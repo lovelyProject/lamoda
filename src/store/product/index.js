@@ -47,4 +47,4 @@ const actions = {
         })
     }
 }
-export default { state, actions, mutations, actionTypes, mutationTypes }
+export default { state, actions, mutations }
