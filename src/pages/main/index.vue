@@ -7,7 +7,6 @@ section.main
       :to="`/products${filter.query}`"
     )
       card(:state="filter")
-
 </template>
 
 <script>
