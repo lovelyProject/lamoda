@@ -1,7 +1,7 @@
 //icons
-import woman from "@/assets/img/woman.jpg";
-import man from "@/assets/img/man.jpg";
-import allGenders from "@/assets/img/all-genders.jpg";
+import woman from "@/assets/img/woman.webp";
+import man from "@/assets/img/man.webp";
+import allGenders from "@/assets/img/all-genders.webp";
 
 const state = {
     filters: [

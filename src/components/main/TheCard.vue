@@ -2,6 +2,7 @@
 figure.card
   img.card__icon(
   :src="state.icon"
+  :alt="state.title"
   )
   figcaption.card__caption {{ state.title }}
 </template>
