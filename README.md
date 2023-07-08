@@ -1,7 +1,19 @@
-# Vue 3 + Vite
+## Lamoda
+# Онлайн магазин с базовым функционалом корзины, подсчета суммы, фильтрами, выводом товара с апи  https://fakestoreapi.com/
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+# Запуск проекта локально
 
-## Recommended IDE Setup
+### Установка node 18.16.0
+- nvm install 18.16.0
+- nvm use 18.16.0
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+### Установка зависимостей через yarn
+- yarn
+
+### Запуск приложения 
+- yarn dev
+
+# Git Flow на проекте
+Существует 2 основные ветки* 
+- main (продакшн)*
+- gh-pages (для деплоя)*
